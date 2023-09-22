@@ -148,6 +148,7 @@ class BasicAdder:
         self.position = None
 
     def poll(self):
+        self.exchange.update_leverage(50, "DYDX")
         while True:
             open_orders = self.info.open_orders(self.exchange.wallet.address)
             print("open_orders", open_orders)
@@ -184,6 +185,7 @@ def main():
     account = eth_account.Account.from_key(config["secret_key"])
     print("Running with account address:", account.address)
     BasicAdder(account, constants.TESTNET_API_URL)
+
 
 
 if __name__ == "__main__":
