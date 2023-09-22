@@ -116,6 +116,7 @@ class BasicAdder:
                     continue
                 # sz = MAX_POSITION + (self.position * (side_to_int(side)))
                 sz = 0.3*MAX_POSITION + 0.6 * (self.position * side_to_int(side))
+                print(f'THIS IS AN {side}. current pos: {self.position}, sz: {sz}')
                 sz = round(sz, 1)
                 # if sz * ideal_price < 10:
                 if abs(self.position * (side_to_int(side))) > MAX_POSITION + 20:
