@@ -84,9 +84,9 @@ class BasicAdder:
             ideal_distance = 0.0002
             ideal_price = book_price - (ideal_distance * (side_to_int(side)))
             logging.debug(
-                f"on_book_update book_price:{book_price} ideal_distance:{ideal_distance} ideal_price:{ideal_price}"
+                f"on_book_update {side}'s book_price:{book_price} ideal_distance:{ideal_distance} ideal_price:{ideal_price}"
             )
-            print(f"on_book_update book_price:{book_price} ideal_distance:{ideal_distance} ideal_price:{ideal_price}")
+            print(f"on_book_update {side}'s book_price:{book_price} ideal_price:{ideal_price}")
             # If a resting order exists, maybe cancel it
             provide_state = self.provide_state[side]
             if provide_state["type"] == "resting":
