@@ -39,7 +39,7 @@ ALLOWABLE_DEVIATION = 1
 MAX_POSITION = 1000
 
 # The coin to add liquidity on
-COIN = "DYDX"
+COIN = "WLD"
 
 InFlightOrder = TypedDict("InFlightOrder", {"type": Literal["in_flight_order"], "time": int})
 Resting = TypedDict("Resting", {"type": Literal["resting"], "px": float, "oid": int})
@@ -59,7 +59,7 @@ class BasicAdder:
     def __init__(self, wallet: LocalAccount, api_url: str):
         self.info = Info(api_url)
         self.exchange = Exchange(wallet, api_url)
-        self.exchange.update_leverage(50, "DYDX")
+        self.exchange.update_leverage(50, COIN)
         subscription: L2BookSubscription = {"type": "l2Book", "coin": COIN}
         self.info.subscribe(subscription, self.on_book_update)
         self.info.subscribe({"type": "userEvents", "user": wallet.address}, self.on_user_events)
@@ -114,9 +114,11 @@ class BasicAdder:
                     logging.debug("Not placing an order because waiting for next position refresh")
                     print("Not placing an order because waiting for next position refresh")
                     continue
-                sz = MAX_POSITION + (self.position * (side_to_int(side)))
+                # sz = MAX_POSITION + (self.position * (side_to_int(side)))
+                sz = 0.3*MAX_POSITION + 0.6 * (self.position * side_to_int(side))
                 sz = round(sz, 1)
-                if sz * ideal_price < 10:
+                # if sz * ideal_price < 10:
+                if abs(self.position * (side_to_int(side))) > MAX_POSITION + 20:
                     logging.debug("Not placing an order because at position limit")
                     print("Not placing an order because at position limit")
                     continue
@@ -148,7 +150,7 @@ class BasicAdder:
         self.position = None
 
     def poll(self):
-        self.exchange.update_leverage(50, "DYDX")
+        self.exchange.update_leverage(50, COIN)
         while True:
             open_orders = self.info.open_orders(self.exchange.wallet.address)
             print("open_orders", open_orders)
