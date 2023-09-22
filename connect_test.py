@@ -119,7 +119,7 @@ class BasicAdder:
                 print(f'THIS IS AN {side}. current pos: {self.position}, sz: {sz}')
                 sz = round(sz, 1)
                 # if sz * ideal_price < 10:
-                if abs(self.position * (side_to_int(side))) > MAX_POSITION + 20:
+                if MAX_POSITION + (self.position * side_to_int(side)) < 10:
                     logging.debug("Not placing an order because at position limit")
                     print("Not placing an order because at position limit")
                     continue
