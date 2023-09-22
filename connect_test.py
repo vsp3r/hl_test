@@ -85,7 +85,7 @@ class BasicAdder:
             logging.debug(
                 f"on_book_update book_price:{book_price} ideal_distance:{ideal_distance} ideal_price:{ideal_price}"
             )
-
+            print(f"on_book_update book_price:{book_price} ideal_distance:{ideal_distance} ideal_price:{ideal_price}")
             # If a resting order exists, maybe cancel it
             provide_state = self.provide_state[side]
             if provide_state["type"] == "resting":
@@ -111,10 +111,12 @@ class BasicAdder:
             if provide_state["type"] == "cancelled":
                 if self.position is None:
                     logging.debug("Not placing an order because waiting for next position refresh")
+                    print("Not placing an order because waiting for next position refresh")
                     continue
-                sz = MAX_POSITION + self.position * (side_to_int(side))
+                sz = 0.4*MAX_POSITION + self.position * (side_to_int(side))
                 if sz * ideal_price < 10:
                     logging.debug("Not placing an order because at position limit")
+                    print("Not placing an order because at position limit")
                     continue
                 px = float(f"{ideal_price:.5g}")  # prices should have at most 5 significant digits
                 print(f"placing order sz:{sz} px:{px} side:{side}")
