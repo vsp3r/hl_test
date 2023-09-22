@@ -1,12 +1,1 @@
-{"secret_key":'090183d5f6fd669a4e9d75862f526f6935df626a7555871002934d2c2ecf6b64}
-
-{
-	"Execution": {
-	  "Host": "127.0.0.1",
-	  "Port": 12345
-	
-  },
-  "excijwe" : {
-	"host": 403
-  }
-}
+{"secret_key":"090183d5f6fd669a4e9d75862f526f6935df626a7555871002934d2c2ecf6b64"}
