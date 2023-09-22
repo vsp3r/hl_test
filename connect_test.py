@@ -27,16 +27,16 @@ from hyperliquid.utils.types import (
 
 # How far from the best bid and offer this strategy ideally places orders. Currently set to .3%
 # i.e. if the best bid is $1000, this strategy will place a resting bid at $997
-DEPTH = 0.003
+DEPTH = 0.0003
 
 # How far from the target price a resting order can deviate before the strategy will cancel and replace it.
 # i.e. using the same example as above of a best bid of $1000 and targeted depth of .3%. The ideal distance is $3, so
 # bids within $3 * 0.5 = $1.5 will not be cancelled. So any bids > $998.5 or < $995.5 will be cancelled and replaced.
-ALLOWABLE_DEVIATION = 0.5
+ALLOWABLE_DEVIATION = 1
 
 # The maximum absolute position value the strategy can accumulate in units of the coin.
 # i.e. the strategy will place orders such that it can long up to 1 ETH or short up to 1 ETH
-MAX_POSITION = 1.0
+MAX_POSITION = 20000
 
 # The coin to add liquidity on
 COIN = "DYDX"
@@ -79,8 +79,9 @@ class BasicAdder:
             return
         for side in SIDES:
             book_price = float(book_data["levels"][side_to_uint(side)][0]["px"]) # gets top of the book price
-            ideal_distance = book_price * DEPTH
-            ideal_price = book_price + (ideal_distance * (side_to_int(side)))
+            # ideal_distance = book_price * DEPTH
+            ideal_distance = 0.0002
+            ideal_price = book_price - (ideal_distance * (side_to_int(side)))
             logging.debug(
                 f"on_book_update book_price:{book_price} ideal_distance:{ideal_distance} ideal_price:{ideal_price}"
             )
