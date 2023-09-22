@@ -36,7 +36,7 @@ ALLOWABLE_DEVIATION = 1
 
 # The maximum absolute position value the strategy can accumulate in units of the coin.
 # i.e. the strategy will place orders such that it can long up to 1 ETH or short up to 1 ETH
-MAX_POSITION = 20000
+MAX_POSITION = 6000
 
 # The coin to add liquidity on
 COIN = "DYDX"
@@ -113,7 +113,7 @@ class BasicAdder:
                     logging.debug("Not placing an order because waiting for next position refresh")
                     print("Not placing an order because waiting for next position refresh")
                     continue
-                sz = 0.4*MAX_POSITION + self.position * (side_to_int(side))
+                sz = MAX_POSITION - self.position * (side_to_int(side))
                 if sz * ideal_price < 10:
                     logging.debug("Not placing an order because at position limit")
                     print("Not placing an order because at position limit")
