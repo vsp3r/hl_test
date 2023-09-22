@@ -115,7 +115,7 @@ class BasicAdder:
                     print("Not placing an order because waiting for next position refresh")
                     continue
                 # sz = MAX_POSITION + (self.position * (side_to_int(side)))
-                sz = 0.3*MAX_POSITION + 0.6 * (self.position * side_to_int(side))
+                sz = 0.5*MAX_POSITION + 0.5 * (self.position * side_to_int(side))
                 # sz = max(10, 0.7 * (self.position * side_to_int(side))) #unwinding positions
                 print(f'THIS IS AN {side}. current pos: {self.position}, sz: {sz}')
                 sz = round(sz, 1)
