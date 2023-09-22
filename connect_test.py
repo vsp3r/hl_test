@@ -135,7 +135,7 @@ class BasicAdder:
                     else:
                         print("Unexpected response from placing order. Setting position to None.", response)
                         self.provide_state[side] = {"type": "cancelled"}
-                        self.position = None
+                        # self.position = None
 
     def on_user_events(self, user_events: UserEventsMsg) -> None:
         print(user_events)
@@ -178,7 +178,7 @@ class BasicAdder:
                     self.position = float(position["position"]["szi"])
                     print(f"set position to {self.position}")
                     break
-            time.sleep(10)
+            time.sleep(5)
 
 
 def main():
