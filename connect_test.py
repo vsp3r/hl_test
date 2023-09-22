@@ -81,8 +81,8 @@ class BasicAdder:
         for side in SIDES:
             book_price = float(book_data["levels"][side_to_uint(side)][0]["px"]) # gets top of the book price
             ideal_distance = book_price * DEPTH
-            ideal_distance = 0.0002
-            ideal_price = book_price - (ideal_distance * (side_to_int(side)))
+            ideal_distance = 0.0001
+            ideal_price = book_price + (ideal_distance * (side_to_int(side)))
             logging.debug(
                 f"on_book_update {side}'s book_price:{book_price} ideal_distance:{ideal_distance} ideal_price:{ideal_price}"
             )
