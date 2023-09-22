@@ -80,7 +80,7 @@ class BasicAdder:
             return
         for side in SIDES:
             book_price = float(book_data["levels"][side_to_uint(side)][0]["px"]) # gets top of the book price
-            # ideal_distance = book_price * DEPTH
+            ideal_distance = book_price * DEPTH
             ideal_distance = 0.0002
             ideal_price = book_price - (ideal_distance * (side_to_int(side)))
             logging.debug(
@@ -115,8 +115,8 @@ class BasicAdder:
                     print("Not placing an order because waiting for next position refresh")
                     continue
                 # sz = MAX_POSITION + (self.position * (side_to_int(side)))
-                # sz = 0.2*MAX_POSITION + 0.7 * (self.position * side_to_int(side))
-                sz = max(10, 0.7 * (self.position * side_to_int(side))) #unwinding positions
+                sz = 0.3*MAX_POSITION + 0.6 * (self.position * side_to_int(side))
+                # sz = max(10, 0.7 * (self.position * side_to_int(side))) #unwinding positions
                 print(f'THIS IS AN {side}. current pos: {self.position}, sz: {sz}')
                 sz = round(sz, 1)
                 # if sz * ideal_price < 10:
