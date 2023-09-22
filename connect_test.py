@@ -114,6 +114,7 @@ class BasicAdder:
                     print("Not placing an order because waiting for next position refresh")
                     continue
                 sz = MAX_POSITION - 0.2*(self.position * (side_to_int(side)))
+                sz = round(sz, 3)
                 if sz * ideal_price < 10:
                     logging.debug("Not placing an order because at position limit")
                     print("Not placing an order because at position limit")
