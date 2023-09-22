@@ -59,7 +59,7 @@ class BasicAdder:
     def __init__(self, wallet: LocalAccount, api_url: str):
         self.info = Info(api_url)
         self.exchange = Exchange(wallet, api_url)
-        self.exchange.update_leverage(21, "ETH")
+        self.exchange.update_leverage(50, "DYDX")
         subscription: L2BookSubscription = {"type": "l2Book", "coin": COIN}
         self.info.subscribe(subscription, self.on_book_update)
         self.info.subscribe({"type": "userEvents", "user": wallet.address}, self.on_user_events)
