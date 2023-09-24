@@ -39,7 +39,7 @@ ALLOWABLE_DEVIATION = 1
 MAX_POSITION = 1000
 
 # The coin to add liquidity on
-COIN = "WLD"
+COIN = "SNX"
 
 InFlightOrder = TypedDict("InFlightOrder", {"type": Literal["in_flight_order"], "time": int})
 Resting = TypedDict("Resting", {"type": Literal["resting"], "px": float, "oid": int})
@@ -59,7 +59,7 @@ class BasicAdder:
     def __init__(self, wallet: LocalAccount, api_url: str):
         self.info = Info(api_url)
         self.exchange = Exchange(wallet, api_url)
-        self.exchange.update_leverage(50, COIN)
+        self.exchange.update_leverage(20, COIN)
         subscription: L2BookSubscription = {"type": "l2Book", "coin": COIN}
         self.info.subscribe(subscription, self.on_book_update)
         self.info.subscribe({"type": "userEvents", "user": wallet.address}, self.on_user_events)
@@ -179,7 +179,7 @@ class BasicAdder:
                     self.position = float(position["position"]["szi"])
                     print(f"set position to {self.position}")
                     break
-            time.sleep(2)
+            time.sleep(10)
 
 
 def main():
