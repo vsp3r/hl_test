@@ -36,7 +36,7 @@ ALLOWABLE_DEVIATION = 1
 
 # The maximum absolute position value the strategy can accumulate in units of the coin.
 # i.e. the strategy will place orders such that it can long up to 1 ETH or short up to 1 ETH
-MAX_POSITION = 1500
+MAX_POSITION = 1000
 
 # The coin to add liquidity on
 COIN = "WLD"
@@ -115,7 +115,7 @@ class BasicAdder:
                     print("Not placing an order because waiting for next position refresh")
                     continue
                 # sz = MAX_POSITION + (self.position * (side_to_int(side)))
-                sz = 0.5*MAX_POSITION + 0.5 * (self.position * side_to_int(side))
+                sz = 0.1*MAX_POSITION + 0.7 * (self.position * side_to_int(side))
                 # sz = max(10, 0.7 * (self.position * side_to_int(side))) #unwinding positions
                 print(f'THIS IS AN {side}. current pos: {self.position}, sz: {sz}')
                 sz = round(sz, 1)
