@@ -98,6 +98,7 @@ class Canceller:
         size = abs(size)
         response = self.exchange.order(COIN, side, size, px, {"limit": {"tif": "Ioc"}})
         print("SENT POSITION CANCELLING MARKET ORDERS")
+        print(response)
         # if response["status"] == "ok":
         #     status = response["response"]["data"]["statuses"][0]
         #     if "resting" in status:
