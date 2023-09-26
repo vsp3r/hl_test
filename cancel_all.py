@@ -47,7 +47,7 @@ class Canceller:
             self.cancel_order(order['oid'])
 
         position = self.get_positions()
-        while int(position['szi']) != 0:
+        while float(position['szi']) != 0:
             self.cancel_position(position['position'])
             time.sleep(5)
 
@@ -92,7 +92,7 @@ class Canceller:
         
     def cancel_position(self, position):
         
-        size = int(position['szi'])
+        size = float(position['szi'])
         side = size < 0 # true(buy) when inventory negative
         px = 99999 if side else 0
         response = self.exchange.order(COIN, side, size, px, {"limit": {"tif": "Ioc"}})
