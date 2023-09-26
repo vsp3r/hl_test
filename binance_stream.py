@@ -3,9 +3,20 @@ import json
 import requests
 import sys
 import logging
-sys.path.append('/Users/sanket/algotrading/infra')
+import platform
+
+if platform.system() == 'Linux':
+    sys.path.append('~/algotrading_infra/')
+else:
+    sys.path.append('/Users/sanket/algotrading/infra')
+
+print(platform.system())
+print(sys.path)
+
 from src.orderbook import Order, Orderbook, Halfbook
 from src.types import Exchange, Side, Lifespan
+
+print(Orderbook)
 
 
 ws_url = 'wss://fstream.binance.com'
@@ -29,7 +40,7 @@ def get_snapshot(symbol: str, limit : int):
     }
     response = requests.get(endpoint, params=params)
     print(response.status_code)
-    return response#.json()
+    return response.json()
 
 def get_exchangeInfo():
     ep = '/fapi/v1/exchangeInfo'
@@ -39,16 +50,16 @@ def get_exchangeInfo():
     return response
 
 
-def build_book(symbol: str):
-    book_data = get_snapshot(symbol=symbol, limit=500)
+# def build_book(symbol: str):
+#     book_data = get_snapshot(symbol=symbol, limit=500)
 
 
-def main():
-    logging.basicConfig(filename='binance_stream', level=logging.ERROR)
+# def main():
+#     logging.basicConfig(filename='binance_stream', level=logging.ERROR)
 
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
 
 
 
