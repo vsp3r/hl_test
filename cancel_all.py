@@ -46,9 +46,14 @@ class Canceller:
         for order in all_orders:
             self.cancel_order(order['oid'])
 
-        all_positions = self.get_positions()
-        for positions in all_positions:
-            self.cancel_position
+        position = self.get_positions()
+        while int(position['szi']) != 0:
+            self.cancel_position(position['position'])
+            time.sleep(5)
+
+        print(f'Orders: {self.get_orders()}')
+        print(f'Positions: {self.get_positions()}')
+
     def get_orders(self):
         endpoint = self.api_url + '/info'
         msg = {
@@ -85,6 +90,21 @@ class Canceller:
             if position['position']['coin'] == COIN:
                 return position
         
+    def cancel_position(self, position):
+        
+        size = int(position['szi'])
+        side = size < 0 # true(buy) when inventory negative
+        px = 99999 if side else 0
+        response = self.exchange.order(COIN, side, size, px, {"limit": {"tif": "Ioc"}})
+        print("SENT POSITION CANCELLING MARKET ORDERS")
+        # if response["status"] == "ok":
+        #     status = response["response"]["data"]["statuses"][0]
+        #     if "resting" in status:
+        #         self.provide_state[side] = {"type": "resting", "px": px, "oid": status["resting"]["oid"]}
+        #     else:
+        #         print("Unexpected response from placing order. Setting position to None.", response)
+        #         self.provide_state[side] = {"type": "cancelled"}
+
     
     def get_timestamp_ms(self) -> int:
         return int(time.time() * 1000)
