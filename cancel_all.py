@@ -95,6 +95,7 @@ class Canceller:
         size = float(position['szi'])
         side = size < 0 # true(buy) when inventory negative
         px = 99999 if side else 0
+        size = abs(size)
         response = self.exchange.order(COIN, side, size, px, {"limit": {"tif": "Ioc"}})
         print("SENT POSITION CANCELLING MARKET ORDERS")
         # if response["status"] == "ok":
