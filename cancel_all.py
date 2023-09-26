@@ -1,6 +1,7 @@
 import json
 import time
 import requests
+import sys
 
 import eth_account
 import utils
@@ -48,7 +49,7 @@ class Canceller:
 
         position = self.get_positions()
         print(float(position['szi']))
-        while float(position['szi']) != 0:
+        while position['entryPx'] != None:
             self.cancel_position(position)
             time.sleep(5)
             position = self.get_positions()
@@ -58,7 +59,7 @@ class Canceller:
 
         print(f'Orders: {self.get_orders()}')
         print(f'Positions: {self.get_positions()}')
-        return
+        sys.exit("cancelled all orders and positions")
 
     def get_orders(self):
         endpoint = self.api_url + '/info'
