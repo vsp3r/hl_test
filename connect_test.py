@@ -127,7 +127,7 @@ class BasicAdder:
                 # if position becomes super unbalanced, increase fade, if not enough volume, decrease edge
                 # use exec to redn and execute an arbitrary params.py file
                 print(f'THIS IS AN {side}. current pos: {self.position}, sz: {sz}')
-                sz = round(sz, 1)
+                sz = round(sz)
                 # if sz * ideal_price < 10:
                 if MAX_POSITION + (self.position * side_to_int(side)) < 10:
                     logging.debug("Not placing an order because at position limit")
