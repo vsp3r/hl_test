@@ -47,11 +47,14 @@ class Canceller:
             self.cancel_order(order['oid'])
 
         position = self.get_positions()
+        print(float(position['szi']))
         while float(position['szi']) != 0:
             self.cancel_position(position)
             time.sleep(5)
             position = self.get_positions()
-            time.sleep(1)
+            print(float(position['szi']))
+            time.sleep(3)
+            print(float(position['szi']))
 
         print(f'Orders: {self.get_orders()}')
         print(f'Positions: {self.get_positions()}')
@@ -96,6 +99,7 @@ class Canceller:
     def cancel_position(self, position):
         
         size = float(position['szi'])
+        print(f'Current position: {size}')
         side = size < 0 # true(buy) when inventory negative
         entry = float(position['entryPx'])
         px = entry + 0.2 * entry if side else entry - 0.2 * entry
