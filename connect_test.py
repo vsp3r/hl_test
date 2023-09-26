@@ -85,6 +85,7 @@ class BasicAdder:
             ideal_distance = book_price * DEPTH
             ideal_distance = 0.00001
             ideal_price = book_price - (ideal_distance * (side_to_int(side)))
+            ideal_price += ideal_distance * (self.position / (0.1 * MAX_POSITION))
             logging.debug(
                 f"on_book_update {side}'s book_price:{book_price} ideal_distance:{ideal_distance} ideal_price:{ideal_price}"
             )
