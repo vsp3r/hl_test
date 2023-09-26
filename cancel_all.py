@@ -88,7 +88,7 @@ class Canceller:
         response = response.json()
         for position in response['assetPositions']:
             if position['position']['coin'] == COIN:
-                return position
+                return position['position']
         
     def cancel_position(self, position):
         
