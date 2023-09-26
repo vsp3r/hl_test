@@ -23,7 +23,7 @@ from hyperliquid.utils.types import (
     UserEventsMsg,
 )
 
-COIN = 'SNX'
+COIN = 'BLZ'
 
 InFlightOrder = TypedDict("InFlightOrder", {"type": Literal["in_flight_order"], "time": int})
 Resting = TypedDict("Resting", {"type": Literal["resting"], "px": float, "oid": int})

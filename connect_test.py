@@ -39,7 +39,7 @@ ALLOWABLE_DEVIATION = 2
 
 # The maximum absolute position value the strategy can accumulate in units of the coin.
 # i.e. the strategy will place orders such that it can long up to 1 ETH or short up to 1 ETH
-MAX_POSITION = 1000
+MAX_POSITION = 10000
 
 # The coin to add liquidity on
 COIN = "BLZ"
