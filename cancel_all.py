@@ -48,7 +48,7 @@ class Canceller:
 
         position = self.get_positions()
         while float(position['szi']) != 0:
-            self.cancel_position(position['position'])
+            self.cancel_position(position)
             time.sleep(5)
 
         print(f'Orders: {self.get_orders()}')
