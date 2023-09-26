@@ -1,7 +1,6 @@
 import json
 import time
 import requests
-import sys
 
 import eth_account
 import utils
@@ -59,7 +58,7 @@ class Canceller:
 
         print(f'Orders: {self.get_orders()}')
         print(f'Positions: {self.get_positions()}')
-        sys.exit("cancelled all orders and positions")
+
 
     def get_orders(self):
         endpoint = self.api_url + '/info'
