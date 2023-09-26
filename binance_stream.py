@@ -6,7 +6,7 @@ import logging
 import platform
 
 if platform.system() == 'Linux':
-    sys.path.append('~/algotrading_infra/')
+    sys.path.append('/root/algotrading_infra/')
 else:
     sys.path.append('/Users/sanket/algotrading/infra')
 
