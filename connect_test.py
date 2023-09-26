@@ -46,7 +46,6 @@ Resting = TypedDict("Resting", {"type": Literal["resting"], "px": float, "oid": 
 Cancelled = TypedDict("Cancelled", {"type": Literal["cancelled"]})
 ProvideState = Union[InFlightOrder, Resting, Cancelled]
 
-
 def side_to_int(side: Side) -> int: #could perhaps replace with enums like order types in rtg
     return 1 if side == "A" else -1
 
@@ -117,6 +116,13 @@ class BasicAdder:
                 # sz = MAX_POSITION + (self.position * (side_to_int(side)))
                 sz = 0.1*MAX_POSITION + 0.7 * (self.position * side_to_int(side))
                 # sz = max(10, 0.7 * (self.position * side_to_int(side))) #unwinding positions
+                # should compute a fair price
+                # then an edge, ie $0.10, and bids at fair - edge, and asks at fair + edge
+                # fade = $0.02, such that our fair price skews based on inventory skew (ie +$0.02 for +100 lots)
+                # slack param to vary edge based on other mms in market. Make sure to always penny exisitng orders
+                # FOR LIVE:
+                # if position becomes super unbalanced, increase fade, if not enough volume, decrease edge
+                # use exec to redn and execute an arbitrary params.py file
                 print(f'THIS IS AN {side}. current pos: {self.position}, sz: {sz}')
                 sz = round(sz, 1)
                 # if sz * ideal_price < 10:
@@ -125,6 +131,8 @@ class BasicAdder:
                     print("Not placing an order because at position limit")
                     continue
                 px = float(f"{ideal_price:.5g}")  # prices should have at most 5 significant digits
+                # should do price based on binance ws price
+                # and try another one with 7 period moving average (w/ pd seconds)
                 print(f"placing order sz:{sz} px:{px} side:{side}")
                 self.provide_state[side] = {"type": "in_flight_order", "time": get_timestamp_ms()}
                 response = self.exchange.order(COIN, side == "B", sz, px, {"limit": {"tif": "Alo"}})
