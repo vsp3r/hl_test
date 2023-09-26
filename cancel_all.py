@@ -50,9 +50,12 @@ class Canceller:
         while float(position['szi']) != 0:
             self.cancel_position(position)
             time.sleep(5)
+            position = self.get_positions()
+            time.sleep(1)
 
         print(f'Orders: {self.get_orders()}')
         print(f'Positions: {self.get_positions()}')
+        return
 
     def get_orders(self):
         endpoint = self.api_url + '/info'
@@ -120,6 +123,7 @@ def main():
     config = utils.get_config()
     account = eth_account.Account.from_key(config['secret_key'])
     canc = Canceller(account, constants.TESTNET_API_URL, config['account'])
+
 
 
 
