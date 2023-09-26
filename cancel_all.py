@@ -96,6 +96,7 @@ class Canceller:
         side = size < 0 # true(buy) when inventory negative
         entry = float(position['entryPx'])
         px = entry + 0.2 * entry if side else entry - 0.2 * entry
+        px = float(f"{px:.5g}")  # prices should have at most 5 significant digits
         size = abs(size)
         response = self.exchange.order(COIN, side, size, px, {"limit": {"tif": "Ioc"}})
         print("SENT POSITION CANCELLING MARKET ORDERS")
