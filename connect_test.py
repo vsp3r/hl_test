@@ -32,14 +32,17 @@ DEPTH = 0.0003
 # How far from the target price a resting order can deviate before the strategy will cancel and replace it.
 # i.e. using the same example as above of a best bid of $1000 and targeted depth of .3%. The ideal distance is $3, so
 # bids within $3 * 0.5 = $1.5 will not be cancelled. So any bids > $998.5 or < $995.5 will be cancelled and replaced.
-ALLOWABLE_DEVIATION = 1
+ALLOWABLE_DEVIATION = 2
+# ie if abs(new price - old price) > some allowable deviation, then quote new price
+# also if diff is very great, then maybe lower size on quotes on other side
+
 
 # The maximum absolute position value the strategy can accumulate in units of the coin.
 # i.e. the strategy will place orders such that it can long up to 1 ETH or short up to 1 ETH
 MAX_POSITION = 1000
 
 # The coin to add liquidity on
-COIN = "SNX"
+COIN = "BLZ"
 
 InFlightOrder = TypedDict("InFlightOrder", {"type": Literal["in_flight_order"], "time": int})
 Resting = TypedDict("Resting", {"type": Literal["resting"], "px": float, "oid": int})
@@ -80,7 +83,7 @@ class BasicAdder:
         for side in SIDES:
             book_price = float(book_data["levels"][side_to_uint(side)][0]["px"]) # gets top of the book price
             ideal_distance = book_price * DEPTH
-            ideal_distance = 0.0001
+            ideal_distance = 0.00001
             ideal_price = book_price - (ideal_distance * (side_to_int(side)))
             logging.debug(
                 f"on_book_update {side}'s book_price:{book_price} ideal_distance:{ideal_distance} ideal_price:{ideal_price}"
@@ -114,7 +117,7 @@ class BasicAdder:
                     print("Not placing an order because waiting for next position refresh")
                     continue
                 # sz = MAX_POSITION + (self.position * (side_to_int(side)))
-                sz = 0.1*MAX_POSITION + 0.7 * (self.position * side_to_int(side))
+                sz = 0.1*MAX_POSITION + 0.8 * (self.position * side_to_int(side))
                 # sz = max(10, 0.7 * (self.position * side_to_int(side))) #unwinding positions
                 # should compute a fair price
                 # then an edge, ie $0.10, and bids at fair - edge, and asks at fair + edge
