@@ -32,7 +32,7 @@ DEPTH = 0.0003
 # How far from the target price a resting order can deviate before the strategy will cancel and replace it.
 # i.e. using the same example as above of a best bid of $1000 and targeted depth of .3%. The ideal distance is $3, so
 # bids within $3 * 0.5 = $1.5 will not be cancelled. So any bids > $998.5 or < $995.5 will be cancelled and replaced.
-ALLOWABLE_DEVIATION = 2
+ALLOWABLE_DEVIATION = 8
 # ie if abs(new price - old price) > some allowable deviation, then quote new price
 # also if diff is very great, then maybe lower size on quotes on other side
 
@@ -139,7 +139,7 @@ class BasicAdder:
                 # and try another one with 7 period moving average (w/ pd seconds)
                 print(f"placing order sz:{sz} px:{px} side:{side}")
                 self.provide_state[side] = {"type": "in_flight_order", "time": get_timestamp_ms()}
-                response = self.exchange.order(COIN, side == "B", sz, px, {"limit": {"tif": "Alo"}})
+                response = self.exchange.order(COIN, side == "B", sz, px, {"limit": {"tif": "Gtc"}})
                 print("placed order", response)
                 if response["status"] == "ok":
                     status = response["response"]["data"]["statuses"][0]
