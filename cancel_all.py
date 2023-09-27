@@ -58,7 +58,7 @@ class Canceller:
         position = self.get_positions()
         while position['entryPx'] is not None:
             self.cancel_position(position)
-            time.sleep(5)
+            time.sleep(3)
             position = self.get_positions()
         self.logger.info(f'Orders: {self.get_open_orders()}')
         self.logger.info(f'Positions: {self.get_positions()}')
