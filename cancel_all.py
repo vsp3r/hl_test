@@ -26,6 +26,7 @@ class Canceller:
         try:
             self.cancel_all_orders()
             self.cancel_open_positions()
+            print('done')
         except Exception as e:
             self.logger.error(f"An error occurred: {str(e)}")
         finally:
