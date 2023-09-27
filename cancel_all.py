@@ -26,11 +26,10 @@ class Canceller:
         try:
             self.cancel_all_orders()
             self.cancel_open_positions()
-            print('done')
         except Exception as e:
             self.logger.error(f"An error occurred: {str(e)}")
-        finally:
-            sys.exit(0)
+        # finally:
+        #     sys.exit(0)
         
 
     def cancel_all_orders(self):
@@ -62,7 +61,7 @@ class Canceller:
             time.sleep(3)
             position = self.get_positions()
         self.logger.info(f'Orders: {self.get_open_orders()}')
-        self.logger.info(f'Positions: {self.get_positions()}')
+        self.logger.info(f'Positions: {self.get_positions()["entryPx"]}')
 
     def get_positions(self):
         endpoint = f"{self.api_url}/info"
