@@ -1,4 +1,4 @@
-self.max_pos = 950
+self.max_pos = 9523
 self.params = {}
 self.params['EFM'] = {
         "edge": .005, # One sided edge from fair
