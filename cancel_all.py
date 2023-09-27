@@ -17,7 +17,7 @@ COIN = 'BLZ'
 class Canceller:
     def __init__(self, wallet: LocalAccount, api_url: str, user: str):
         self.logger = logging.getLogger(__class__.__name__)
-        self.info = Info(api_url)
+        self.info = Info(api_url, skip_ws=True)
         self.exchange = Exchange(wallet, api_url)
         self.user = user
         self.api_url = api_url
