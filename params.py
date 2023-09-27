@@ -1,20 +1,17 @@
-# Original trading parameters
-initial_params = {
-    'stop_loss': 1.0,
-    'take_profit': 2.0,
-    'lot_size': 0.1
-}
+self.max_pos = 950
+self.params = {}
+self.params['EFM'] = {
+        "edge": .005, # One sided edge from fair
+        "fade": .005, # Fade per 100 delta
+        "size": 100, # Size of trade
+        "edge_slack": .10 # edge to ask for beyond min edge
+        }
+otherparam = {
+        "edge": .002,
+        "fade": .001,
+        "size": 100,
+        "edge_slack": .10
+        }
 
-# New parameters as a string
-new_params_code = """
-stop_loss = 0.5
-take_profit = 1.5
-lot_size = 0.2
-"""
-
-print(initial_params)
-# Use exec to apply the new parameters
-exec(new_params_code)
-
-# The trading parameters are now updated
-print(initial_params)
+for c in ['EFQ', 'EFV', 'EFZ']:
+    self.params[c] = otherparam

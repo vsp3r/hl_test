@@ -28,8 +28,7 @@ class Canceller:
             self.cancel_open_positions()
         except Exception as e:
             self.logger.error(f"An error occurred: {str(e)}")
-        # finally:
-        #     sys.exit(0)
+  
         
 
     def cancel_all_orders(self):

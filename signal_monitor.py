@@ -3,10 +3,13 @@ import os
 import signal
 import sys
 import threading
+import logging
 
 class SignalMonitor:
     def __init__(self):
         """Monitors for changes in params.py"""
+        logging.basicConfig(level=logging.INFO)
+        self.logger = logging.getLogger(__class__.__name__)
         self.initial_modification_time = os.path.getmtime('params.py')
 
         # sets up signal handler, using arbitrary SIGUSR1
