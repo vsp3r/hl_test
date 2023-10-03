@@ -42,7 +42,7 @@ ALLOWABLE_DEVIATION = 8
 MAX_POSITION = 10000
 
 # The coin to add liquidity on
-COIN = "BLZ"
+COIN = "GMT"
 
 InFlightOrder = TypedDict("InFlightOrder", {"type": Literal["in_flight_order"], "time": int})
 Resting = TypedDict("Resting", {"type": Literal["resting"], "px": float, "oid": int})
