@@ -60,9 +60,11 @@ def side_to_uint(side: Side) -> int:
 class BasicAdder:
     def __init__(self, wallet: LocalAccount, api_url: str):
         self.info = Info(api_url)
+        print('connecting ws')
         self.exchange = Exchange(wallet, api_url)
         self.exchange.update_leverage(20, COIN)
         subscription: L2BookSubscription = {"type": "l2Book", "coin": COIN}
+        print('SUBBING')
         self.info.subscribe(subscription, self.on_book_update)
         self.info.subscribe({"type": "userEvents", "user": wallet.address}, self.on_user_events)
         self.position: Optional[float] = None
@@ -75,6 +77,7 @@ class BasicAdder:
         self.poller.start()
 
     def on_book_update(self, book_msg: L2BookMsg) -> None:
+        print('BOOK MESSAGE BACK')
         logging.debug(f"book_msg {book_msg}")
         book_data = book_msg["data"]
         if book_data["coin"] != COIN:
